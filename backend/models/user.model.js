@@ -18,18 +18,15 @@ const userSchema = new Schema({
 
     password: {
         type: String,
+        required: true,
         minLength: 8,
     },
-
-    createdAt: {
-        type: Date
-    },
-
-    updateAt: {
-        type: Date
-    },
-
+    
     followers: [userSchema],
 
     followings: [userSchema]
+}, {
+    timestamps: true
 });
+
+module.exports = mongoose.model('User', userSchema);

@@ -1,10 +1,10 @@
+import userModel from '../models/user.model'
+
 const register = (req, res) => {
-    const { data } = req.body;
+    const { pseudo, email, password } = req.body;
 
     try{
-        res.status(200).json({
-            raw: data
-        })
+        //
     }catch(err){
         res.status(401).json(err)
     }
