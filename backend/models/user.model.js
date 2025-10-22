@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
 const { Schema } = mongoose
 import { isEmail } from 'validator'
 
@@ -28,5 +29,9 @@ const userSchema = new Schema({
 }, {
     timestamps: true
 });
+
+userSchema.pre('save', (next)=>{
+    this.password = "";
+})
 
 module.exports = mongoose.model('User', userSchema);
