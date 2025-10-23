@@ -30,8 +30,11 @@ const userSchema = new Schema({
     timestamps: true
 });
 
-userSchema.pre('save', (next)=>{
-    this.password = "";
-})
+userSchema.pre('save', async (next)=>{
+    const hashedPassword = await bcrypt.hash(this.password, process.env.HASH_SALT_ROUND);
+    this.password = hashedPassword;
+
+    next()
+});
 
 module.exports = mongoose.model('User', userSchema);
