@@ -1,7 +1,8 @@
-import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
-const { Schema } = mongoose
-import { isEmail } from 'validator'
+import { Schema, mongoose } from 'mongoose'
+import validator from 'validator'
+
+const { isEmail } = validator;
 
 const userSchema = new Schema({
     pseudo: {
@@ -23,18 +24,25 @@ const userSchema = new Schema({
         minLength: 8,
     },
     
-    followers: [userSchema],
+    followers: [],
 
-    followings: [userSchema]
+    followings: []
 }, {
     timestamps: true
 });
 
-userSchema.pre('save', async (next)=>{
-    const hashedPassword = await bcrypt.hash(this.password, process.env.HASH_SALT_ROUND);
-    this.password = hashedPassword;
+userSchema.pre('save', async function (next){
+    try{
+        const parsedSalt = parseInt(process.env.HASH_SALT_ROUND)
+        const hashedPassword = await bcrypt.hash(this.password, parsedSalt);
+        this.password = hashedPassword;
 
-    next()
+        next()
+    }catch(err){
+        console.log(err)
+    }
 });
 
-module.exports = mongoose.model('User', userSchema);
+const userModel = mongoose.model('User', userSchema);
+
+export default userModel;

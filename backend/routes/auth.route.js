@@ -1,9 +1,10 @@
-const express = require('express')
-const router = express.Router();
-const { register } = require('../controllers/auth.controller')
+import express from 'express';
+import { register } from '../controllers/auth.controller.js'
+
+const userRoute = express.Router();
 
 // Ajout d'un nouvel utilisateur
-router.post('/register', register);
+userRoute.post('/register', register);
 
 
-module.exports = router;
+export { userRoute };

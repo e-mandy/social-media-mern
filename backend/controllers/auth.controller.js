@@ -1,19 +1,19 @@
-import userModel from '../models/user.model'
+import userModel from '../models/user.model.js'
 
-const register = (req, res) => {
+const register = async (req, res) => {
     const { pseudo, email, password } = req.body;
 
     try{
-        const newUser = userModel.create({
+        const newUser = await userModel.create({
             pseudo: pseudo,
             email: email,
             password: password
         });
 
-        console.log(`New user: ${newUser}`)
+        return res.status(200).json(newUser)
     }catch(err){
-        res.status(401).json(err)
+        res.status(401).json(err.message)
     }
 }
 
-module.exports = { register };
+export { register }
