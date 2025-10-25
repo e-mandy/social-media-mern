@@ -29,9 +29,9 @@ const login = async (req, res)=>{
 
     if(!passwordMatch) return res.status(401).json({ message: "Invalid password"})
 
-    const userToken = jwt.sign({ userId: targetUser._id }, process.env.APPLICATION_SECRET_KEY, { expiresIn: process.env.EXPIRING_DAY })
+    const token = jwt.sign({ userId: targetUser._id, email: targetUser.email }, process.env.APPLICATION_SECRET_KEY, { expiresIn: process.env.EXPIRING_DAY })
 
-    return res.status(200).cookie()
+    return res.status(200).cookie('connexion_token', token, { httpOnly: true, maxAge: 60 * 10 * 1000})
 }
 
 export { register }
