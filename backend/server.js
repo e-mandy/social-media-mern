@@ -1,7 +1,7 @@
-import express from 'express'
-import dotenv from 'dotenv'
+import express from 'express';
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { userRoute } from './routes/auth.route.js'
+import { userRoute } from './routes/auth.route.js';
 import { authMiddleware } from './middlewares/auth.middleware.js';
 dotenv.config()
 const app = express();
