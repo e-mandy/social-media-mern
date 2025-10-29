@@ -1,5 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  --color-auth-primary: #282828;
+  --color-auth-primary: #181818;
+  --color-secondary: #979899;
+}
+
+body{
+  color: #FFF5EE;
+
+}
+
+@layer components {
+  .input-class{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0 12px 8px;
+    border: 2px rgb(38, 38, 38) solid;
+    margin-bottom: 15px;
+    border-radius: 6px;
+  }
+
+  .button-class{
+    border-radius: 6px;
+    padding: 10px 0;
+    font-weight: bold;
+    text-align: center;
+  }
 }
