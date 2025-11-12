@@ -31,6 +31,13 @@ const Register = () => {
                 </label>
               </div>
 
+              <div>
+                <label className="input-class bg-black" htmlFor="pseudo">
+                  <Lock color="gray" />
+                  <input type="password" className="outline-none" placeholder="Secret Password" id="password_confirmation" />
+                </label>
+              </div>
+
               <button className="button-class bg-blue-600 w-full mt-2" type="submit">S'inscrire</button>
             </form>
 
