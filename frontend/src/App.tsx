@@ -1,4 +1,4 @@
-import Register from './Auth/Pages/Register'
+import Register from './features/auth/Pages/Register'
 
 
 function App() {

@@ -21,13 +21,13 @@ export const RegisterSchema = z.object({
     path: ['pseudo']
 });
 
-export const AuthSchema = z.object({
-    user: RegisterSchema,
-    token: z.string()
+export const AuthStoreSchema = z.object({
+    user: RegisterSchema.nullable(),
+    token: z.string().nullable()
 });
 
 export type RegisterUser = z.infer<typeof RegisterSchema>
 
-export type AuthStore = z.infer<typeof AuthSchema> & {
+export type AuthStore = z.infer<typeof AuthStoreSchema> & {
     logout: () => void
 }
