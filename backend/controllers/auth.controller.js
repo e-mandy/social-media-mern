@@ -19,11 +19,14 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res)=>{
+    setTimeout(()=> {
+        console.log('processing')
+    }, 1000)
     const { email, password } = req.body;
 
     const targetUser = await userModel.findOne({ email: email })
 
-    if(!targetUser) return res.status('401').json({ message: "Email or password invalid" })
+    if(!targetUser) return res.status(401).json({ message: "Email or password invalid" })
 
     const passwordMatch = await bcrypt.compare(password, targetUser.password);
 
@@ -31,7 +34,7 @@ const login = async (req, res)=>{
 
     const token = jwt.sign({ userId: targetUser._id, email: targetUser.email }, process.env.APPLICATION_SECRET_KEY, { expiresIn: process.env.EXPIRING_DAY })
 
-    return res.status(200).cookie('connexion_token', token, { httpOnly: true, maxAge: 60 * 10 * 1000})
+    return res.status(200).cookie('connexion_token', token, { httpOnly: true, maxAge: 60 * 10 * 1000}).json({ "response": "OK" })
 }
 
 export { register, login }
