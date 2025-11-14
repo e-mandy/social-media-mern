@@ -4,18 +4,27 @@ import type { SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema, type RegisterUser } from '../schemas';
 import { useRegister } from '../api/useRegister'
+import { useNavigate } from 'react-router';
+import Spinner from '../../../components/Spinner';
 
 const Register = () => {
 
-  const { mutate } = useRegister()
+  const { mutate, isPending } = useRegister();
+
+  const navigate = useNavigate();
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<RegisterUser>({
     resolver: zodResolver(RegisterSchema)
   })
 
-  const onSubmit: SubmitHandler<RegisterUser> = (data) => {
-    mutate(data)
+  const onSubmit: SubmitHandler<RegisterUser> = async (data) => {
+    mutate(data, {
+      onSuccess: () => {
+        navigate("/login")
+      }
+    })
     reset()
+
   }
 
   return (
@@ -54,11 +63,14 @@ const Register = () => {
                 <label className="input-class bg-black">
                   <Lock color="gray" />
                   <input type="password" className="outline-none w-full" placeholder="Secret Password" {...register('password_confirmation')} />
-                  {errors.password_confirmation?.message && (<span>{errors.password_confirmation.message}</span>)}
                 </label>
+                  {errors.password_confirmation?.message && (<span>{errors.password_confirmation.message}</span>)}
               </div>
 
-              <button className="button-class bg-blue-600 w-full mt-2 cursor-pointer" type="submit">S'inscrire</button>
+              <button className="button-class bg-blue-600 w-full mt-2 cursor-pointer flex items-center justify-center gap-4" type="submit">
+                <span>S'inscrire</span>
+                {isPending && <Spinner height='20' width='20' visible={true} />}
+              </button>
             </form>
 
           </div>

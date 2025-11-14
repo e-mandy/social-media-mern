@@ -11,9 +11,6 @@ const sendUser = async(data: RegisterUser) => {
 
 export const useRegister = () => {
     return useMutation({
-        mutationFn: sendUser,
-        onSuccess: (data) => {
-            console.log(data)
-        } 
+        mutationFn: sendUser
     })
 }
