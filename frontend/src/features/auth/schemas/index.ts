@@ -21,12 +21,19 @@ export const RegisterSchema = z.object({
     path: ['pseudo']
 });
 
+export const LoginSchema = z.object({
+    email: z.email("L'adresse mail doit respecter le format example@example.com"),
+    password: passwordRules
+})
+
 export const AuthStoreSchema = z.object({
     user: RegisterSchema.nullable(),
     token: z.string().nullable()
 });
 
 export type RegisterUser = z.infer<typeof RegisterSchema>
+
+export type LoginUser = z.infer<typeof LoginSchema>
 
 export type AuthStore = z.infer<typeof AuthStoreSchema> & {
     logout: () => void
