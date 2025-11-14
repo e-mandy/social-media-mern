@@ -3,16 +3,18 @@ import { useForm} from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema, type RegisterUser } from '../schemas';
+import { useRegister } from '../api/useRegister'
 
 const Register = () => {
+
+  const { mutate } = useRegister()
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<RegisterUser>({
     resolver: zodResolver(RegisterSchema)
   })
 
   const onSubmit: SubmitHandler<RegisterUser> = (data) => {
-    console.log(data)
-
+    mutate(data)
     reset()
   }
 
