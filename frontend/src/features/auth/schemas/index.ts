@@ -14,7 +14,7 @@ export const RegisterSchema = z.object({
 }).refine((data) => {
     const parsingResult = parseInt(data.pseudo)
 
-    return Number.isInteger(parsingResult)
+    return !Number.isInteger(parsingResult)
 }, {
     message: "Votre pseudo ne peut pas être un entier mais une chaine de caractères",
 
