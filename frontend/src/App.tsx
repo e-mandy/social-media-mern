@@ -1,11 +1,19 @@
 import Register from './features/auth/Pages/Register'
-
+import { BrowserRouter, Routes, Route } from 'react-router'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 function App() {
 
   return (
     <>
-      <Register />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<ProtectedRoutes />}>
+            <p>Piégéééé</p>
+          </Route>
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
