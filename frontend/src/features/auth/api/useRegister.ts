@@ -1,16 +1,28 @@
 import { useMutation } from '@tanstack/react-query'
 import type { RegisterUser } from '../schemas/index'
 
-const sendUser = async(data: RegisterUser) => {
-    return await new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(data)
-        }, 2000)
-    })
+const register = async ({ pseudo, email, password }: RegisterUser) => {
+    try{
+        const request = await fetch(`http://${import.meta.env.VITE_HOST}:${import.meta.env.VITE_PORT}/api/users/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                pseudo: pseudo,
+                email: email,
+                password: password
+            })
+        })
+    
+        return await request.json()
+    }catch(err){
+        console.log(err)
+    }
 }
 
 export const useRegister = () => {
     return useMutation({
-        mutationFn: sendUser
+        mutationFn: register
     })
 }

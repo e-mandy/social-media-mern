@@ -34,7 +34,6 @@ const Login = () => {
                 <span>S'inscrire</span>
               </button>
             </form>
-
           </div>
         </div>
     </div>
