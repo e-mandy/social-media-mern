@@ -19,8 +19,8 @@ const Register = () => {
 
   const onSubmit: SubmitHandler<RegisterUser> = async (data) => {
     mutate(data, {
-      onSuccess: (data) => {
-        console.log(data)
+      onSuccess: () => {
+        navigate('/login')
       }
     })
     reset()
