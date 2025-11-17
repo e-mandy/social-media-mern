@@ -34,7 +34,10 @@ const login = async (req, res)=>{
 
     const token = jwt.sign({ userId: targetUser._id, email: targetUser.email }, process.env.APPLICATION_SECRET_KEY, { expiresIn: process.env.EXPIRING_DAY })
 
-    return res.status(200).cookie('connexion_token', token, { httpOnly: true, maxAge: 60 * 10 * 1000}).json({ "response": "OK" })
+    return res.status(200).cookie('connexion_token', token, { httpOnly: true, maxAge: 60 * 10 * 1000}).json({
+        pseudo: targetUser.pseudo,
+        email: targetUser.email
+    })
 }
 
 export { register, login }

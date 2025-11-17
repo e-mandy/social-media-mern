@@ -4,6 +4,7 @@ import cors from 'cors'
 import mongoose from 'mongoose';
 import { userRoute } from './routes/auth.route.js';
 import { authMiddleware } from './middlewares/auth.middleware.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config()
 const app = express();
@@ -12,6 +13,7 @@ app.use(cors({
     origin: `http://localhost:${process.env.CLIENT_PORT}`
 }))
 
+app.use(cookieParser())
 app.use(express.json());
 
 app.use('/api/users', userRoute);
