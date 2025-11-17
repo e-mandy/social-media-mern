@@ -1,4 +1,4 @@
-import { useAuthStore, useIsAuthenticated } from "../features/auth/store/register.store";
+import { useAuthStore, useIsAuthenticated } from "../features/auth/store/auth.store";
 import { Navigate, Outlet } from "react-router";
 
 const ProtectedRoutes = () => {
