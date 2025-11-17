@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router'
 import { useLogin } from '../api/useLogin'
 import { notify } from '../../../utils/notify'
 import Spinner from '../../../components/Spinner'
+import { useAuthStore } from '../store/auth.store'
 
 const Login = () => {
 
@@ -12,11 +13,14 @@ const Login = () => {
 
     const { mutate, isPending } = useLogin();
 
+    const { login } = useAuthStore();
+
     const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<LoginUser> = (formData) => {
       mutate(formData, {
-        onSuccess: () => {
+        onSuccess: (data) => {
+          login(data)
           notify({ type: "success", message: "User logged successfully"});
           navigate("/")
         }
