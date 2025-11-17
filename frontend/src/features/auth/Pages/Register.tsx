@@ -6,6 +6,7 @@ import { RegisterSchema, type RegisterUser } from '../schemas';
 import { useRegister } from '../api/useRegister'
 import { useNavigate, Link } from 'react-router';
 import Spinner from '../../../components/Spinner';
+import { notify } from '../../../utils/notify';
 
 const Register = () => {
 
@@ -27,6 +28,7 @@ const Register = () => {
   const onSubmit: SubmitHandler<RegisterUser> = async (data) => {
     mutate(data, {
       onSuccess: () => {
+        notify({ type: "success", message: "Created user successfully"})
         navigate('/login')
       }
     })

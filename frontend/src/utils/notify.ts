@@ -5,7 +5,8 @@ export type ToastShape = {
     message: string
 }
 
-export const notify = ({ type, message }: ToastShape) => {
+export const notify = (Content: ToastShape) => {
+    const { type, message } = Content;
     switch(type){
         case "success":
             toast.success(message)
