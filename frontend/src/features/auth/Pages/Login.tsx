@@ -1,6 +1,7 @@
 import { Mail, Lock } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import type { LoginUser } from '../schemas/index'
+import { Link } from 'react-router'
 
 const Login = () => {
 
@@ -11,7 +12,7 @@ const Login = () => {
         <div className="bg-auth-primary h-screen w-screen flex">
           <div className="flex flex-col items-center my-auto w-full">
             <h1 className="text-2xl font-semibold">Welcome in the experience</h1>
-            <p className="text-secondary mt-1 mb-6">Already have an account ? <a className="text-blue-400">Sign in</a></p>
+            <p className="text-secondary mt-1 mb-6">Already have an account ? <Link to="/register" className="text-blue-400">Sign up</Link></p>
             <form className="w-[85%] md:w-[450px]">
 
               <div className="mb-4">
