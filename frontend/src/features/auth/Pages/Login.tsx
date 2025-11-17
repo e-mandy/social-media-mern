@@ -1,11 +1,27 @@
 import { Mail, Lock } from 'lucide-react'
-import { useForm } from 'react-hook-form'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 import type { LoginUser } from '../schemas/index'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
+import { useLogin } from '../api/useLogin'
+import { notify } from '../../../utils/notify'
+import Spinner from '../../../components/Spinner'
 
 const Login = () => {
 
-    const { register, formState: { errors } } = useForm<LoginUser>()
+    const { register, formState: { errors }, handleSubmit } = useForm<LoginUser>();
+
+    const { mutate, isPending } = useLogin();
+
+    const navigate = useNavigate();
+
+    const onSubmit: SubmitHandler<LoginUser> = (formData) => {
+      mutate(formData, {
+        onSuccess: () => {
+          notify({ type: "success", message: "User logged successfully"});
+          navigate("/")
+        }
+      })
+    }
 
   return (
     <div>
@@ -13,7 +29,7 @@ const Login = () => {
           <div className="flex flex-col items-center my-auto w-full">
             <h1 className="text-2xl font-semibold">Welcome in the experience</h1>
             <p className="text-secondary mt-1 mb-6">Already have an account ? <Link to="/register" className="text-blue-400">Sign up</Link></p>
-            <form className="w-[85%] md:w-[450px]">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-[85%] md:w-[450px]">
 
               <div className="mb-4">
                 <label className="input-class bg-black">
@@ -32,8 +48,9 @@ const Login = () => {
               </div>
 
               <button className="button-class bg-blue-600 w-full mt-2 cursor-pointer flex items-center justify-center gap-4" type="submit">
-                <span>S'inscrire</span>
-              </button>
+              <span>Se connecter</span>
+              {isPending && <Spinner height='20' width='20' visible={true} />}
+            </button>
             </form>
           </div>
         </div>
