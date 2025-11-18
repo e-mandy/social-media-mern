@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router'
 import ProtectedRoutes from './components/ProtectedRoutes'
 import Homepage from './Pages/Homepage'
 import { Toaster } from 'react-hot-toast'
+import AppLayout from './Pages/AppLayout'
+import { Profile,  } from './Pages'
 
 function App() {
 
@@ -14,7 +16,10 @@ function App() {
         <Routes>
 
           <Route element={<ProtectedRoutes />}>
-            <Route element={<Homepage />} path="/" />
+            <Route element={<AppLayout />}>
+              <Route element={<Homepage />} path="/" />
+              <Route element={<Profile />} path="/profile" />
+            </Route>
           </Route>
 
           {/* Les routes publiques */}

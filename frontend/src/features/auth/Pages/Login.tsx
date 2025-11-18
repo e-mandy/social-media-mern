@@ -22,7 +22,7 @@ const Login = () => {
         onSuccess: (data) => {
           login(data)
           notify({ type: "success", message: "User logged successfully"});
-          navigate("/")
+          navigate("/profile")
         }
       })
     }
