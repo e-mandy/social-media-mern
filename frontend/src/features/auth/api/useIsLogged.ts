@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-export const isLogged = async () => {
+const isLogged = async () => {
     const request = await fetch(`http://${import.meta.env.VITE_HOST}:${import.meta.env.VITE_PORT}/api/auth/isLogged`, {
         method: "GET",
         headers: {
@@ -11,8 +11,10 @@ export const isLogged = async () => {
     return await request.json()
 }
 
-const useIsLogged = () => {
+export const useIsLogged = () => {
     return useQuery({
-        queryKey: ['']
+        queryKey: ['user_logged'],
+        queryFn: isLogged,
+        enabled: true
     })
 }
