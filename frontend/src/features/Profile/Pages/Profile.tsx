@@ -1,6 +1,6 @@
 import { CircleEllipsis, ChevronLeft, Pencil, Share2 } from "lucide-react"
-import profile_photo from '../assets/images/profile/profile_logo.jpeg'
-import ProfileStats from "../features/Profile/Stats/ProfileStats"
+import profile_photo from '../../../assets/images/profile/profile_logo.jpeg'
+import ProfileStats from "../Components/ProfileStats"
 
 const Profile = () => {
   return (
@@ -22,7 +22,7 @@ const Profile = () => {
         <ProfileStats />
 
         <div className="text-white flex w-full justify-between px-3">
-          <button className="flex gap-2 profile-action">
+          <button className="flex gap-2 profile-action bg-blue-600">
             <Pencil />
             Edit the profile
           </button>

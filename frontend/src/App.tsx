@@ -5,7 +5,7 @@ import ProtectedRoutes from './components/ProtectedRoutes'
 import Homepage from './Pages/Homepage'
 import { Toaster } from 'react-hot-toast'
 import AppLayout from './Pages/AppLayout'
-import { Profile,  } from './Pages'
+import Profile from './features/Profile/Pages/Profile'
 
 function App() {
 

@@ -1,7 +1,7 @@
 
 const ProfileStats = () => {
   return (
-    <div className="flex justify-end pt-5 mr-4 mb-6 gap-7 text-center text-black profile-stats">
+    <div className="flex justify-end pt-5 mr-4 mb-6 gap-7 text-center text-white profile-stats">
         <div>
             <h5>200</h5>
             <p>Post</p>
