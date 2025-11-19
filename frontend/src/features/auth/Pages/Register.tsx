@@ -29,7 +29,7 @@ const Register = () => {
     mutate(data, {
       onSuccess: () => {
         notify({ type: "success", message: "Created user successfully"})
-        navigate('/login')
+        navigate("/login")
       }
     })
     reset()
@@ -46,33 +46,33 @@ const Register = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="w-[85%] md:w-[450px]">
 
             <div className="mb-4">
-              <label className="input-class bg-black">
+              <label className="input-class bg-black" htmlFor='pseudo'>
                 <User color="gray" />
-                <input type="text" className="outline-none w-full" placeholder="Your pseudo" {...register('pseudo')} />
+                <input type="text" className="outline-none w-full" placeholder="Your pseudo" {...register('pseudo')} id='pseudo' />
               </label>
               {errors.pseudo?.message && (<span>{errors.pseudo.message}</span>)}
             </div>
 
             <div className="mb-4">
-              <label className="input-class bg-black">
+              <label className="input-class bg-black" htmlFor='email'>
                 <Mail color="gray" />
-                <input type="email" className="outline-none w-full" placeholder="Email Address" {...register('email')} />
+                <input type="email" className="outline-none w-full" placeholder="Email Address" {...register('email')} id='email' />
               </label>
                 {errors.email?.message && (<span>{errors.email.message}</span>)}
             </div>
 
             <div className="mb-4">
-              <label className="input-class bg-black">
+              <label className="input-class bg-black" htmlFor='password'>
                 <Lock color="gray" />
-                <input type="password" className="outline-none w-full" placeholder="Secret Password" {...register('password')} />
+                <input type="password" className="outline-none w-full" placeholder="Secret Password" {...register('password')} id='password' />
               </label>
                 {errors.password?.message && (<span>{errors.password.message}</span>)}
             </div>
 
             <div className="mb-4">
-              <label className="input-class bg-black">
+              <label className="input-class bg-black" htmlFor='password_confirmation'>
                 <Lock color="gray" />
-                <input type="password" className="outline-none w-full" placeholder="Secret Password" {...register('password_confirmation')} />
+                <input type="password" className="outline-none w-full" placeholder="Secret Password" {...register('password_confirmation')} id='password_confirmation' />
               </label>
                 {errors.password_confirmation?.message && (<span>{errors.password_confirmation.message}</span>)}
             </div>

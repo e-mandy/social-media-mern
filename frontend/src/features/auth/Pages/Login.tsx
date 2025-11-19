@@ -22,7 +22,7 @@ const Login = () => {
         onSuccess: (data) => {
           login(data)
           notify({ type: "success", message: "User logged successfully"});
-          navigate("/profile")
+          navigate("profile")
         }
       })
     }
@@ -36,17 +36,17 @@ const Login = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="w-[85%] md:w-[450px]">
 
               <div className="mb-4">
-                <label className="input-class bg-black">
+                <label className="input-class bg-black" htmlFor='email'>
                   <Mail color="gray" />
-                  <input type="email" className="outline-none w-full" placeholder="Email Address" {...register('email')} />
+                  <input type="email" className="outline-none w-full" placeholder="Email Address" {...register('email')} id='email' />
                 </label>
                   {errors.email?.message && (<span>{errors.email.message}</span>)}
               </div>
 
               <div className="mb-4">
-                <label className="input-class bg-black">
+                <label className="input-class bg-black" htmlFor='password'>
                   <Lock color="gray" />
-                  <input type="password" className="outline-none w-full" placeholder="Secret Password" {...register('password')} />
+                  <input type="password" className="outline-none w-full" placeholder="Secret Password" {...register('password')} id='password' />
                 </label>
                   {errors.password?.message && (<span>{errors.password.message}</span>)}
               </div>

@@ -4,14 +4,16 @@ import { useEffect } from 'react'
 import { useIsLogged } from '../features/auth/api/useIsLogged'
 
 const ProtectedRoutes = () => {
-    const { user } = useAuthStore();
+    const { user, login } = useAuthStore();
 
     const { isLogin } = useIsAuthenticated()
 
-    const { refetch } = useIsLogged()
+    const { refetch, data } = useIsLogged()
 
     useEffect( () => {
       refetch()
+      login(data)
+
     }, [])
 
   return (
