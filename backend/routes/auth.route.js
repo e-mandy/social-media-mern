@@ -8,6 +8,6 @@ authRoute.post('/register', register);
 
 authRoute.post('/login', login)
 
-// authRoute.get('/')
+authRoute.get('/isLogged')
 
 export { authRoute };
