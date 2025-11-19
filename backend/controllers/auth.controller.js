@@ -40,12 +40,21 @@ const login = async (req, res)=>{
     })
 }
 
-const isConnected = (req, res) => {
+const isLogged = async (req, res) => {
     const token = req.cookies.connexion_token;
 
     if(!token) return res.status(401).json({ code: "UNAUTHENTICATED USER" })
 
-    return (jwt.verify(token, process.env.APPLICATION_SECRET_KEY)) ? res.status(200).json({ code: "USER CONNECTED" }) : res.status(401).json({ code: "USER NOT CONNECTED" })
+    const decoded = jwt.verify(token, process.env.APPLICATION_SECRET_KEY);
+    
+    if(!decoded) res.status(401).json({ code: "USER NOT CONNECTED" })
+
+    const user = await userModel.findOne({ email: decoded.email })
+
+    return res.status(200).json({
+        pseudo: user.pseudo,
+        email: user.email
+    })
 }
 
-export { register, login, isConnected }
+export { register, login, isLogged }
