@@ -2,8 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors'
 import mongoose from 'mongoose';
-import { userRoute } from './routes/auth.route.js';
-import { authMiddleware } from './middlewares/auth.middleware.js';
+import { authRoute } from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
 
 dotenv.config()
@@ -16,7 +15,7 @@ app.use(cors({
 app.use(cookieParser())
 app.use(express.json());
 
-app.use('/api/users', userRoute);
+app.use('/api/auth', authRoute);
 
 mongoose.connect(`mongodb+srv://${process.env.DATABASE_HOSTNAME}:${process.env.DATABASE_PASSWORD}@cluster0.fkmoapd.mongodb.net/${process.env.DATABASE_NAME}`);
 

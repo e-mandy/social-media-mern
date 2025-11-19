@@ -40,4 +40,12 @@ const login = async (req, res)=>{
     })
 }
 
-export { register, login }
+const isConnected = (req, res) => {
+    const token = req.cookies.connexion_token;
+
+    if(!token) return res.status(401).json({ code: "UNAUTHENTICATED USER" })
+
+    return (jwt.verify(token, process.env.APPLICATION_SECRET_KEY)) ? res.status(200).json({ code: "USER CONNECTED" }) : res.status(401).json({ code: "USER NOT CONNECTED" })
+}
+
+export { register, login, isConnected }
