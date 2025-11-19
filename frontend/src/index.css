@@ -9,15 +9,7 @@ body{
   color: #FFF5EE;
   padding: 0;
   margin: 0;
-}
-
-*{
-  color: black;
-}
-
-.profile-stats h5{
-  font-weight: bold;
-  font-size: larger;
+  background-color: #181818;
 }
 
 @layer components {
@@ -35,5 +27,18 @@ body{
     padding: 10px 0;
     font-weight: bold;
     text-align: center;
+  }
+
+  .profile-stats h5{
+    font-weight: bold;
+    font-size: larger;
+  }
+
+  .profile-action{
+    border: 1px black solid;
+    box-shadow: 1px 1px 8px black;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
   }
 }

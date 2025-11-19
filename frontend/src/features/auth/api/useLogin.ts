@@ -3,7 +3,7 @@ import type { LoginUser } from "../schemas"
 
 const login = async({ email, password }: LoginUser) => {
     try{
-        const request = await fetch(`http://${import.meta.env.VITE_HOST}:${import.meta.env.VITE_PORT}/api/users/login`, {
+        const request = await fetch(`http://${import.meta.env.VITE_HOST}:${import.meta.env.VITE_PORT}/api/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

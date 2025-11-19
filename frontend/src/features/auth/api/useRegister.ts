@@ -3,7 +3,7 @@ import type { RegisterUser } from '../schemas/index'
 
 const register = async ({ pseudo, email, password }: RegisterUser) => {
     try{
-        const request = await fetch(`http://${import.meta.env.VITE_HOST}:${import.meta.env.VITE_PORT}/api/users/register`, {
+        const request = await fetch(`http://${import.meta.env.VITE_HOST}:${import.meta.env.VITE_PORT}/api/auth/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
