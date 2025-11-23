@@ -4,7 +4,6 @@ import type { SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterSchema, type RegisterUser } from '../schemas';
 import { useRegister } from '../api/useRegister'
-import { useNavigate, Link } from 'react-router';
 import Spinner from '../../../components/Spinner';
 import { notify } from '../../../utils/notify';
 

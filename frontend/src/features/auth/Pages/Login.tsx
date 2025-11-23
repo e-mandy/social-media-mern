@@ -1,7 +1,6 @@
 import { Mail, Lock } from 'lucide-react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import type { LoginUser } from '../schemas/index'
-import { Link, useNavigate } from 'react-router'
 import { useLogin } from '../api/useLogin'
 import { notify } from '../../../utils/notify'
 import Spinner from '../../../components/Spinner'

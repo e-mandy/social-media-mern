@@ -1,5 +1,4 @@
 import { useAuthStore, useIsAuthenticated } from "../features/auth/store/auth.store";
-import { Navigate, Outlet } from "react-router";
 import { useEffect } from 'react'
 import { useIsLogged } from '../features/auth/api/useIsLogged'
 
