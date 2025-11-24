@@ -6,6 +6,7 @@ import { RegisterSchema, type RegisterUser } from '../schemas';
 import { useRegister } from '../api/useRegister'
 import Spinner from '../../../components/Spinner';
 import { notify } from '../../../utils/notify';
+import { useNavigate, Link } from 'react-router';
 
 const Register = () => {
 

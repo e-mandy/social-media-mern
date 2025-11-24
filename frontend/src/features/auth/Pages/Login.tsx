@@ -5,6 +5,7 @@ import { useLogin } from '../api/useLogin'
 import { notify } from '../../../utils/notify'
 import Spinner from '../../../components/Spinner'
 import { useAuthStore } from '../store/auth.store'
+import { useNavigate, Link } from 'react-router';
 
 const Login = () => {
 
@@ -21,7 +22,7 @@ const Login = () => {
         onSuccess: (data) => {
           login(data)
           notify({ type: "success", message: "User logged successfully"});
-          navigate("profile")
+          navigate("/profile")
         }
       })
     }
