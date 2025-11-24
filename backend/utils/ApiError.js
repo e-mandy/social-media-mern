@@ -13,5 +13,10 @@ class ApiError extends Error {
         // On enregistre l'etat du l'exception
         this.state = (`${statusCode}`.startsWith('4')) ? 'client error' : 'server error'
 
+        // Permettre de retracer facilement les fonctions ou les fichiers à la base des erreurs.
+        Error.captureStackTrace(this, this.constructor);
+
     }
 }
+
+export { ApiError };
