@@ -27,6 +27,7 @@ const Login = () => {
         },
         onError: (error) => {
           notify({ "type": "error", "message": error.message })
+          
         }
       })
     }
