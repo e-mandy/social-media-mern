@@ -1,19 +1,22 @@
 import { useQuery } from '@tanstack/react-query'
 
 const isLogged = async () => {
-    try{
 
-        const request = await fetch(`http://${import.meta.env.VITE_HOST}:${import.meta.env.VITE_PORT}/api/auth/isLogged`, {
-            method: "GET",
-            headers: {
-                "Type-Content": "application/json"
-            }
-        })
-    
-        return await request.json()
-    }catch(err){
-        console.log(err)
+    const request = await fetch(`http://${import.meta.env.VITE_HOST}:${import.meta.env.VITE_PORT}/api/auth/isLogged`, {
+        method: "GET",
+        headers: {
+            "Type-Content": "application/json"
+        }
+    })
+
+    if(!request.ok){
+        const error = await request.json();
+
+        throw new Error(error.message);
     }
+
+    return await request.json()
+    
 }
 
 export const useIsLogged = () => {

@@ -20,14 +20,13 @@ const Login = () => {
     const onSubmit: SubmitHandler<LoginUser> = (formData) => {
       mutate(formData, {
         onSuccess: (data) => {
-          console.log(data)
           login(data)
           notify({ type: "success", message: "User logged successfully"});
           navigate("/profile")
         },
         onError: (error) => {
           notify({ "type": "error", "message": error.message })
-          
+
         }
       })
     }
