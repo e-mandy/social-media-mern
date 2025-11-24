@@ -17,6 +17,7 @@ const login = async({ email, password }: LoginUser) => {
         return await request.json()
     }catch(error){
         console.log(error)
+        return error
     }
 }
 

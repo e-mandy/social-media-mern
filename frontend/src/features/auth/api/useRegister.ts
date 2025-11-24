@@ -17,12 +17,12 @@ const register = async ({ pseudo, email, password }: RegisterUser) => {
     
         return await request.json()
     }catch(err){
-        console.log(err)
+        return err;
     }
 }
 
 export const useRegister = () => {
     return useMutation({
-        mutationFn: register
+        mutationFn: register,
     })
 }

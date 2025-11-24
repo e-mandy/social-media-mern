@@ -29,10 +29,13 @@ const Register = () => {
     mutate(data, {
       onSuccess: () => {
         notify({ type: "success", message: "Created user successfully"})
+        reset()
         navigate("/login")
+      },
+      onError: (error) => {
+        notify({ "type": "error", "message": error.message })
       }
     })
-    reset()
 
   }
 
@@ -50,7 +53,7 @@ const Register = () => {
                 <User color="gray" />
                 <input type="text" className="outline-none w-full" placeholder="Your pseudo" {...register('pseudo')} id='pseudo' />
               </label>
-              {errors.pseudo?.message && (<span>{errors.pseudo.message}</span>)}
+              {errors.pseudo?.message && (<span className='text-red-500 text-sm ml-1'>{errors.pseudo.message}</span>)}
             </div>
 
             <div className="mb-4">
@@ -58,7 +61,7 @@ const Register = () => {
                 <Mail color="gray" />
                 <input type="email" className="outline-none w-full" placeholder="Email Address" {...register('email')} id='email' />
               </label>
-                {errors.email?.message && (<span>{errors.email.message}</span>)}
+                {errors.email?.message && (<span className='text-red-500 text-sm ml-1'>{errors.email.message}</span>)}
             </div>
 
             <div className="mb-4">
@@ -66,7 +69,7 @@ const Register = () => {
                 <Lock color="gray" />
                 <input type="password" className="outline-none w-full" placeholder="Secret Password" {...register('password')} id='password' />
               </label>
-                {errors.password?.message && (<span>{errors.password.message}</span>)}
+                {errors.password?.message && (<span className='text-red-500 text-sm ml-1'>{errors.password.message}</span>)}
             </div>
 
             <div className="mb-4">
@@ -74,7 +77,7 @@ const Register = () => {
                 <Lock color="gray" />
                 <input type="password" className="outline-none w-full" placeholder="Secret Password" {...register('password_confirmation')} id='password_confirmation' />
               </label>
-                {errors.password_confirmation?.message && (<span>{errors.password_confirmation.message}</span>)}
+                {errors.password_confirmation?.message && (<span className='text-red-500 text-sm ml-1'>{errors.password_confirmation.message}</span>)}
             </div>
 
             <button className="button-class bg-blue-600 w-full mt-2 cursor-pointer flex items-center justify-center gap-4" type="submit">
