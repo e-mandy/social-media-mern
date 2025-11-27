@@ -34,7 +34,7 @@ const login = async (req, res)=>{
 
     const access_token = jwt.sign({ id: targetUser._id, email: targetUser.email }, process.env.APPLICATION_SECRET_KEY, { expiresIn: process.env.EXPIRING_DAY })
     
-    const refresh_token = jwt.sign({ id: targetUser._id, email: targetUser.email }, process.env.APPLICATION_REFRESH_TOKEN, { expiresIn: '10min'})
+    const refresh_token = jwt.sign({ id: targetUser._id, email: targetUser.email }, process.env.APPLICATION_REFRESH_TOKEN, { expiresIn: '1m'})
 
     return res.status(200).cookie('refresh_token', refresh_token, { httpOnly: true, maxAge: 60 * 10 * 1000}).json({
         pseudo: targetUser.pseudo,
@@ -44,16 +44,17 @@ const login = async (req, res)=>{
 }
 
 const isLogged = async (req, res) => {
-    
-    const authUser = userModel.findOne({ email: decoded.email });
+
+    const { token } = req.body;
 
     return res.status(200).json({
-        pseudo: user.pseudo,
-        email: user.email
-    })
+        token: token,
+        code: "PERMISSION ACCEPTED",
+        message: "You get a new acces token"
+    });
 }
 
-export const refreshAccessToken = ({ id, email }) => {
+const refreshAccessToken = ({ id, email }) => {
     const new_AT = jwt.sign({ id: id, email: email }, process.env.APPLICATION_REFRESH_TOKEN, { expiresIn: process.env.EXPIRING_DAY })
 
     return new_AT;
