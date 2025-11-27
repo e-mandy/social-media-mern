@@ -32,24 +32,34 @@ const login = async (req, res)=>{
 
     if(!passwordMatch) return res.status(401).json({ message: "Invalid password"})
 
-    const token = jwt.sign({ userId: targetUser._id, email: targetUser.email }, process.env.APPLICATION_SECRET_KEY, { expiresIn: process.env.EXPIRING_DAY })
+    const access_token = jwt.sign({ userId: targetUser._id, email: targetUser.email }, process.env.APPLICATION_SECRET_KEY, { expiresIn: process.env.EXPIRING_DAY })
+    
+    const refresh_token = jwt.sign({ id: targetUser._id, email: targetUser.email }, process.env.APPLICATION_REFRESH_TOKEN, { expiresIn: '10min'})
 
-    return res.status(200).cookie('connexion_token', token, { httpOnly: true, maxAge: 60 * 10 * 1000}).json({
+    return res.status(200).cookie('refresh_token', refresh_token, { httpOnly: true, maxAge: 60 * 10 * 1000}).json({
         pseudo: targetUser.pseudo,
-        email: targetUser.email
+        email: targetUser.email,
+        token: access_token
     })
 }
 
 const isLogged = async (req, res) => {
-    const token = req.cookies.connexion_token;
+    // On récupère le refresh token dans le cookie du client
+    const { currentRT } = req.cookies.refresh_token;
 
-    if(!token) return res.status(401).json({ code: "UNAUTHENTICATED USER" })
+    if(!currentRT) return res.status(401).json({
+        code: "TOKEN_EXPIRED",
+        message: "Your session expired"
+    });
 
-    const decoded = jwt.verify(token, process.env.APPLICATION_SECRET_KEY);
-    
-    if(!decoded) res.status(401).json({ code: "USER NOT CONNECTED" })
+    const decoded = jwt.verify(currentRT, process.env.APPLICATION_REFRESH_TOKEN);
 
-    const user = await userModel.findOne({ email: decoded.email })
+    if(!decoded) return res.status(401).json({
+        code: "UNKNOWN CONNECTION",
+        message: "You're trying to acces protected ressources. Who are you dummy ?"
+    })
+
+    const authUser = userModel.findOne({ email: decoded.email });
 
     return res.status(200).json({
         pseudo: user.pseudo,
@@ -57,4 +67,11 @@ const isLogged = async (req, res) => {
     })
 }
 
-export { register, login, isLogged }
+export const refreshAccessToken = ({ id, email }) => {
+
+    const new_AT = jwt.sign({ id: authUser._id, email: authUser.email }, process.env.APPLICATION_REFRESH_TOKEN, { expiresIn: process.env.EXPIRING_DAY })
+
+    return new_AT;
+}
+
+export { register, login, isLogged, refreshAccessToken }
