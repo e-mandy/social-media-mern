@@ -3,7 +3,6 @@ import { refreshAccessToken } from '../controllers/auth.controller.js';
 
 const authMiddleware = (req, res, next) => {
     const access_token = req.headers.authorization;
-    console.log(access_token)
     
     try{
         if(!access_token){
