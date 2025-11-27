@@ -13,14 +13,14 @@ const Login = () => {
 
     const { mutate, isPending } = useLogin();
 
-    const { login } = useAuthStore();
+    const login = useAuthStore((state) => state.login);
 
     const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<LoginUser> = (formData) => {
       mutate(formData, {
         onSuccess: (data) => {
-          login(data)
+          login(data.token)
           notify({ type: "success", message: "User logged successfully"});
           navigate("/profile")
         },

@@ -3,13 +3,13 @@ import type { AuthStore } from '../schemas';
 import type { RegisterUser } from '../schemas/index'
 
 export const useAuthStore = create<AuthStore>((set) => ({
-    user: null,
-    
-    logout: () => set({ user: null }),
+    token: null,
 
-    login: (user: RegisterUser) => set({ user: user})
+    logout: () => set({ token: null }),
+
+    login: (token: string) => set({ token: token})
 }))
 
 export const useIsAuthenticated = create(() => ({
-    isLogin: (userStore: RegisterUser | null) => (userStore === null) ? false : true
+    isLogin: (userStore: string | null) => (userStore === null) ? false : true
 }))
