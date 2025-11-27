@@ -2,29 +2,28 @@ import jwt from 'jsonwebtoken';
 import { refreshAccessToken } from '../controllers/auth.controller';
 
 const authMiddleware = (req, res, next) => {
-    // On récupère le refresh token dans le cookie du client
-    const currentRT = req.cookies.refresh_token;
     const access_token = req.headers.authorization;
 
-    if(!currentRT) return res.status(401).json({
-        code: "TOKEN_EXPIRED",
-        message: "Your session expired"
-    });
+    if(!access_token){
+        const currentRT = req.cookies.refresh_token;
+        if(!currentRT) return res.status(401).json({
+            code: "UNAUTHORIZED ACCESS",
+            message: "You're trying to access unauthorized ressouces"
+        })
 
-    const decoded = jwt.verify(currentRT, process.env.APPLICATION_REFRESH_TOKEN);
+        const decoded = jwt.verify(currentRT, process.env.APPLICATION_REFRESH_TOKEN);
+        
+        res.json({
+            token: refreshAccessToken(decoded)
+        })
+    }
 
-    if(!decoded) return res.status(401).json({
-        code: "UNKNOWN CONNECTION",
-        message: "You're trying to access protected ressources. Who are you dummy ?"
+    if(!jwt.verify(access_token, process.env.APPLICATION_SECRET_KEY)) return res.status(401).json({
+        code: "UNAUTHORIZED ACCESS",
+        message: "You're trying to access unauthorized ressouces"
     })
-    
-    const { _id, email } = userModel.findOne({ email: decoded.email });
 
-    if(!access_token) res.json({
-        token: refreshAccessToken({ _id, email })
-    });
-
-    next();
+    next()
 }
 
 export { authMiddleware }

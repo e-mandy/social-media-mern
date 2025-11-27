@@ -32,7 +32,7 @@ const login = async (req, res)=>{
 
     if(!passwordMatch) return res.status(401).json({ message: "Invalid password"})
 
-    const access_token = jwt.sign({ userId: targetUser._id, email: targetUser.email }, process.env.APPLICATION_SECRET_KEY, { expiresIn: process.env.EXPIRING_DAY })
+    const access_token = jwt.sign({ id: targetUser._id, email: targetUser.email }, process.env.APPLICATION_SECRET_KEY, { expiresIn: process.env.EXPIRING_DAY })
     
     const refresh_token = jwt.sign({ id: targetUser._id, email: targetUser.email }, process.env.APPLICATION_REFRESH_TOKEN, { expiresIn: '10min'})
 
@@ -44,21 +44,7 @@ const login = async (req, res)=>{
 }
 
 const isLogged = async (req, res) => {
-    // On récupère le refresh token dans le cookie du client
-    const { currentRT } = req.cookies.refresh_token;
-
-    if(!currentRT) return res.status(401).json({
-        code: "TOKEN_EXPIRED",
-        message: "Your session expired"
-    });
-
-    const decoded = jwt.verify(currentRT, process.env.APPLICATION_REFRESH_TOKEN);
-
-    if(!decoded) return res.status(401).json({
-        code: "UNKNOWN CONNECTION",
-        message: "You're trying to acces protected ressources. Who are you dummy ?"
-    })
-
+    
     const authUser = userModel.findOne({ email: decoded.email });
 
     return res.status(200).json({
@@ -68,8 +54,7 @@ const isLogged = async (req, res) => {
 }
 
 export const refreshAccessToken = ({ id, email }) => {
-
-    const new_AT = jwt.sign({ id: authUser._id, email: authUser.email }, process.env.APPLICATION_REFRESH_TOKEN, { expiresIn: process.env.EXPIRING_DAY })
+    const new_AT = jwt.sign({ id: id, email: email }, process.env.APPLICATION_REFRESH_TOKEN, { expiresIn: process.env.EXPIRING_DAY })
 
     return new_AT;
 }
